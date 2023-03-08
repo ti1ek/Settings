@@ -2,12 +2,15 @@
 //  SwitchTableViewCell.swift
 //  Settings
 //
-//  Created by Zhuldyz Bukeshova on 05.03.2023.
+//  Created by Tilek Koszhanov on 05.03.2023.
 //
 
 import UIKit
 
 class SwitchTableViewCell: UITableViewCell {
+    
+    // MARK: - Outlets
+    
     static let identifier = "SwitchTableViewCell"
     
     private let iconContainer: UIView = {
@@ -36,29 +39,48 @@ class SwitchTableViewCell: UITableViewCell {
         return switchButton
     }()
     
+    // MARK: - Initializers
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier )
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        contentView.addSubview(iconContainer)
-        iconContainer.addSubview(iconImageView)
-        contentView.addSubview(switchButton )
-        contentView.addSubview(label)
-        
+        setupHierarchy()
+
         contentView.clipsToBounds = true
-        accessoryType  = .none
+        accessoryType = .none
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been im plemented")
     }
     
+    // MARK: - Setup
+    
+    func setupHierarchy() {
+        contentView.addSubview(iconContainer)
+        iconContainer.addSubview(iconImageView)
+        contentView.addSubview(switchButton )
+        contentView.addSubview(label)
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
+        
         let size: CGFloat = contentView.frame.size.height - 12
-        iconContainer.frame = CGRect(x: 15,  y: 6, width: size, height: size)
+        
+        iconContainer.frame = CGRect(
+            x: 15,
+            y: 6,
+            width: size,
+            height: size)
         
         let imageSize: CGFloat = size / 1.5
-        iconImageView.frame = CGRect(x: (size - imageSize) / 2, y: (size - imageSize) / 2, width: imageSize, height: imageSize)
+        
+        iconImageView.frame = CGRect(
+            x: (size - imageSize) / 2,
+            y: (size - imageSize) / 2,
+            width: imageSize,
+            height: imageSize)
         
         switchButton.sizeToFit()
         switchButton.frame = CGRect(
@@ -68,14 +90,17 @@ class SwitchTableViewCell: UITableViewCell {
             height: switchButton.frame.size.height)
         
         label.frame = CGRect(
-            x: 25   + iconContainer.frame.size.width ,
+            x: 25   + iconContainer.frame.size.width,
             y: 0,
-              width: contentView.frame.size.width - 20  - iconContainer.frame.size.width ,
+            width: contentView.frame.size.width - 20  - iconContainer.frame.size.width,
             height: contentView.frame.size.height)
     }
     
+    // MARK: - Reuse
+    
     override func prepareForReuse() {
         super.prepareForReuse()
+        
         iconContainer.backgroundColor = nil
         iconImageView.image = nil
         label.text = nil

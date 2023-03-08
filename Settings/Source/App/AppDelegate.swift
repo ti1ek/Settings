@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  Settings
 //
-//  Created by Zhuldyz Bukeshova on 05.03.2023.
+//  Created by Tilek Koszhanov on 05.03.2023.
 //
 
 import UIKit
